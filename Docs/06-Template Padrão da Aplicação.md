@@ -1,31 +1,32 @@
-# Template Padrão da Aplicação
+# Template Padrao da Aplicacao
 
-Este template define como organizar código, estilos e constantes dentro do SlotsEngine para manter consistência e facilitar ajustes de regras.
+Este template define como organizar codigo, estilos e constantes dentro do SlotsEngine para manter consistencia e facilitar ajustes de regras.
 
-## Organização de componentes
-- **Seções principais**: `HeaderSection`, `DepositSection`, `BetSelector`, `SlotBoard`, `StatsRow`, `MessageBanner`, `BottomBar`.
-- **Modais**: `WithdrawModal` (saque simulado) e `SettingsModal` (tema e som).
-- **Ponto de entrada**: `App.js` orquestra layout e animação das colunas.
+## Organizacao de componentes e paginas
+- **Pages**: `LoginPage` (tela inicial), `CreateAccountPage` (cadastro), `CasinoPage` (cassino) e `ProfilePage` (dados do usuario) em `src/pages`.
+- **Secoes principais da CasinoPage**: `HeaderSection`, `DepositSection`, `BetSelector`, `SlotBoard`, `StatsRow`, `MessageBanner`, `BottomBar`.
+- **Modais**: `WithdrawModal` (saque simulado) e `SettingsModal` (tema e som) seguindo a paleta dourado/escuro do login.
+- **Ponto de entrada**: `App.js` roteia entre as pages; `CasinoPage` orquestra layout, animacao das colunas e chamadas do hook.
 
-## Hooks e lógica
-- `useSlotMachine`: estado central (saldo, aposta, último prêmio, mensagens, modais, tema/som). Deve receber apenas interações da UI.
+## Hooks e logica
+- `useSlotMachine`: estado central (saldo, aposta, ultimo premio, mensagens, modais, tema/som). Deve receber apenas interacoes da UI.
 - `useSounds`: encapsula Expo AV e respeita a flag `somAtivo`.
-- `slotLogic.js`: funções puras (`girar`, `jogarRodada`, `calcularPagamentoTotal`) para manter testabilidade.
+- `slotLogic.js`: funcoes puras (`girar`, `jogarRodada`, `calcularPagamentoTotal`) para manter testabilidade.
 
 ## Constantes e temas
-- `src/constants/game.js`: apostas disponíveis, tamanho do grid e URIs de som.
-- `src/constants/theme.js`: paletas para tema claro/escuro; novos tons devem preservar contraste mínimo.
+- `src/constants/game.js`: apostas disponiveis, tamanho do grid e URIs de som.
+- `src/constants/theme.js`: paletas para tema claro/escuro; titulos do header usam a cor dos naipes no tema claro.
 
 ## Estilos
-- Estilos globais em `src/styles/main.js`, com uso de `StyleSheet` e variáveis de cor vindas de `themeColors`.
-- Preferir componentes pequenos com estilos próprios ao invés de estilos inline extensos.
+- Estilos globais em `src/styles/main.js`, com uso de `StyleSheet` e variaveis de cor vindas de `themeColors`.
+- Preferir componentes pequenos com estilos proprios em vez de blocos inline extensos.
 
-## Convenções
-- Mensagens de erro sempre iniciam com verbo/ação clara (ex.: “Créditos insuficientes...”).
-- Valores monetários formatados via `formatarBRL` para consistência.
-- Funções puras em arquivos de lógica/utilitários para facilitar testes unitários futuros.
+## Convencoes
+- Mensagens de erro iniciam com verbo/acao clara (ex.: "Creditos insuficientes...").
+- Valores monetarios formatados via `formatarBRL` para consistencia.
+- Funcoes puras em arquivos de logica/utilitarios para facilitar testes unitarios futuros.
 
-## Extensões futuras sugeridas
-- Persistência local (AsyncStorage) para saldo e tema.
-- Internacionalização das mensagens.
+## Extensoes futuras sugeridas
+- Persistencia local (AsyncStorage) para saldo, tema e dados basicos do usuario.
+- Internacionalizacao das mensagens.
 - Novos layouts de tabuleiro (ex.: 5x3) mantendo o mesmo contrato do hook.
