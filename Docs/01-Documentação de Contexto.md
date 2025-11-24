@@ -47,27 +47,28 @@ flowchart LR
     classDef node fill:#ffffff,stroke:#1f2937,stroke-width:1.2px,color:#1f2937,font-size:14px,font-weight:bold;
     classDef center fill:#f3f4f6,stroke:#1f2937,stroke-width:1.5px,color:#1f2937,font-size:14px,font-weight:bold;
 
-    %% NODES
-    U["• Jogadores ocasionais"]
-    D["• Desenvolvedores / Estudantes"]
-    M["• Mentores / Avaliadores"]
-    E["⚙️ Equipe de Desenvolvimento"]
-    A["🎰 SlotsEngine (Frontend)"]
+    %% NÓS
+    U["Jogadores ocasionais"]
+    D["Desenvolvedores / Estudantes"]
+    M["Mentores / Avaliadores"]
+    E["Equipe de Desenvolvimento"]
+    A["SlotsEngine (Frontend)"]
 
-    %% APLICAÇÃO DE CLASSES
+    %% CLASSES
     class U,D,M,E node;
     class A center;
 
-    %% RELACIONAMENTOS
+    %% RELAÇÕES
     U -->|"Feedback"| E
     D -->|"Contribuições"| E
     M -->|"Validação"| E
 
     E -->|"Implementação"| A
 
-    A -->|"Uso / Experiência"| U
-    A -->|"Estudo / Código"| D
+    A -->|"Uso"| U
+    A -->|"Estudo"| D
     A -->|"Documentação"| M
+
 ```
 
 
