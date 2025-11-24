@@ -1,72 +1,27 @@
 # Apresentação da Solução
 
-Neste documento, será apresentado um resumo do processo de desenvolvimento do projeto, destacando os principais marcos e desafios superados. No final, será apresentada a solução desenvolvida, com uma demonstração em vídeo para ilustrar seu funcionamento.
+SlotsEngine é um app mobile de slot machine construído em React Native com Expo. Todo o fluxo de créditos, apostas e cálculo de prêmios acontece no próprio dispositivo, com feedback visual e sonoro e sem qualquer transação real.
 
 ---
 
 ## 1. Visão Geral do Processo de Desenvolvimento
-
-O desenvolvimento do projeto foi conduzido de acordo com as melhores práticas de engenharia de software, visando atender aos requisitos estabelecidos, resolver os problemas identificados e criar uma solução que seja eficiente e fácil de usar.
-
-### Etapas do Processo:
-
-1. **Planejamento e Análise**:
-   - Definição dos requisitos do projeto.
-   - Levantamento de necessidades e objetivos da solução.
-   - Análise das necessidades do usuário e possíveis soluções tecnológicas.
-
-2. **Desenvolvimento do Protótipo**:
-   - Criação de um protótipo inicial para validação das ideias.
-   - Testes de usabilidade iniciais com feedback dos usuários.
-   - Ajustes na interface e funcionalidades com base nas sugestões recebidas.
-
-3. **Desenvolvimento da Solução**:
-   - Implementação do backend (se aplicável) e frontend, utilizando as tecnologias selecionadas.
-   - Integração de funcionalidades de acordo com os requisitos definidos.
-   - Testes de desempenho e segurança para garantir robustez e escalabilidade.
-
-4. **Testes e Validação**:
-   - Execução de testes de usabilidade para avaliar a experiência do usuário.
-   - Realização de testes funcionais e de integração para verificar a consistência do sistema.
-   - Análise dos resultados dos testes e ajustes na solução conforme necessário.
-
-5. **Implantação e Treinamento**:
-   - Implantação da solução no ambiente de produção.
-   - Treinamento dos usuários finais sobre o uso adequado do sistema.
-
----
+- **Levantamento e ideação**: definição do problema (simular um fluxo completo de slots para estudo de UX e lógica de jogo) e das regras de premiação.
+- **Prototipação**: wireframes de um fluxo linear (depósito → aposta → giro → saque) para validar a hierarquia visual em telas pequenas.
+- **Construção**: implementação do hook `useSlotMachine`, camada de lógica de sorteio (`slotLogic`) e componentes modais de saque/configuração.
+- **Teste e refinamento**: validação manual no Expo Go (Android e web), ajustes em mensagens de erro, temas e limites de valores.
 
 ## 2. Desafios Encontrados
-
-Durante o desenvolvimento, enfrentamos alguns desafios, como:
-
-- **Complexidade na integração com sistemas legados**: Foi necessário ajustar a solução para garantir a compatibilidade com sistemas existentes.
-- **Otimização de desempenho**: Houve a necessidade de otimizar o código para garantir que o sistema fosse responsivo, especialmente em dispositivos móveis.
-- **Garantia de acessibilidade**: Um dos focos principais foi garantir que o site fosse acessível a todos os usuários, incluindo aqueles com necessidades especiais.
-
----
+- Garantir UX clara em um fluxo sem backend, mantendo o usuário informado sobre saldo, aposta e resultado a cada giro.
+- Balancear raridade x premiação para que o jogo permaneça compreensível em uma grade 3x3.
+- Tratar estados de erro (saldo insuficiente, depósito abaixo do mínimo, saque maior que o saldo) com mensagens curtas e consistentes.
 
 ## 3. Solução Desenvolvida
+- **Depósito e saldo**: valor mínimo de R$ 20 libera apostas; feedback sonoro ao creditar.
+- **Apostas e giro**: seleção de apostas pré-definidas, débito imediato, animação de giro e cálculo de ganhos por linhas/diagonais.
+- **Configurações e acessibilidade**: alternância de tema claro/escuro e controle de som direto no modal.
+- **Saque simulado**: retirada do saldo disponível e atualização do banner de mensagem.
 
-A solução final é uma aplicação [descreva brevemente a solução: exemplo "site de e-commerce", "plataforma de aprendizado", etc.] que atende aos requisitos iniciais do projeto, proporcionando uma experiência de usuário agradável e eficiente. Ela foi projetada para ser intuitiva e acessível, com um design responsivo que se adapta a diferentes dispositivos.
+> Demonstração sugerida: gravação pelo Expo (Android) exibindo depósito, dois giros com resultados diferentes, troca de tema e saque.
 
-### Funcionalidades Principais:
-- **Funcionalidade 1**: [Descreva a funcionalidade principal].
-- **Funcionalidade 2**: [Descreva outra funcionalidade importante].
-- **Funcionalidade 3**: [Descreva mais uma funcionalidade].
-
-> **Demonstração**: Para ilustrar como a solução funciona na prática, assista ao vídeo abaixo.
-
----
-
-## 4. Demonstração em Vídeo
-
-O vídeo a seguir apresenta uma demonstração prática da solução, mostrando suas funcionalidades em ação. Ele foi gravado para oferecer uma visão clara de como o usuário interage com o sistema e como ele pode ser utilizado para atingir seus objetivos.
-
-> **[Link para o vídeo de demonstração](URL do vídeo)**
-
----
-
-## 5. Conclusão
-
-O projeto foi concluído com sucesso, atendendo aos objetivos e superando desafios importantes. A solução desenvolvida oferece um alto valor para os usuários finais e está pronta para ser utilizada de forma eficaz.
+## 4. Conclusão
+O aplicativo comprova o fluxo completo de um jogo casual de slots em front-end puro, servindo como artefato de estudo e portfólio. A estrutura em Expo facilita futuras evoluções, como internacionalização, ajustes de balanceamento ou persistência local.

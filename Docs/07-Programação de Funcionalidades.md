@@ -1,22 +1,51 @@
 # Programação de Funcionalidades
 
-> **Pré-requisitos:**  
-> Antes de iniciar, verifique a seguinte documentação: <a href="02-Especificação do Projeto.md"> Especificação do Projeto</a>, <a href="04-Projeto de Interface.md"> Projeto de Interface</a>, <a href="03-Metodologia.md"> Metodologia</a>, <a href="05-Arquitetura da Solução.md"> Arquitetura da Solução</a>.
+Lista de funcionalidades implementadas no SlotsEngine, mapeadas para componentes/arquivos e regras principais.
 
-## Descrição
+## Depósito de créditos
+- **Componente**: `DepositSection`
+- **Regras**:
+  - Valor mínimo R$ 20,00 para liberar apostas.
+  - Feedback sonoro (`deposit`) e mensagem de sucesso/erro.
+- **Lógica**: `useSlotMachine` valida, soma ao saldo e atualiza `totalInserido`.
 
-Esta fase da implementação envolve o desenvolvimento das funcionalidades do sistema de acordo com os requisitos definidos. O código-fonte gerado deve ser bem estruturado e organizado, considerando as melhores práticas de desenvolvimento. Para cada requisito funcional, o artefato resultante (geralmente código-fonte ou documentação relacionada) deve ser detalhado e validado conforme os seguintes critérios:
+## Seleção de aposta
+- **Componente**: `BetSelector`
+- **Regras**:
+  - Valores pré-definidos de `apostasDisponiveis`.
+  - Pode ser alterado antes de cada giro.
 
-- **Requisitos atendidos**: Relacionar os requisitos específicos que estão sendo implementados.
-- **Estruturas de dados**: Definir claramente as estruturas de dados que estão sendo utilizadas para implementar a funcionalidade.
-- **Ambiente de hospedagem**: Incluir instruções sobre como a funcionalidade deve ser acessada e validada no ambiente de produção ou homologação.
-  
-Esta implementação deve estar de acordo com as práticas ágeis, garantindo a entregabilidade contínua e revisões rápidas de código.
+## Giro da roleta
+- **Componente**: botão de giro em `SlotBoard` (orquestrado por `App.js`).
+- **Lógica**:
+  - Verifica saldo ≥ aposta (senão mensagem de erro).
+  - Debita saldo, chama `jogarRodada` (em `slotLogic.js`), toca som `spin`.
+  - Atualiza grid, destaca linhas vencedoras (`obterPosicoesVencedoras`), credita ganhos e exibe mensagem.
 
----
+## Cálculo de pagamento
+- **Arquivo**: `src/game/slotLogic.js`
+- **Regras**:
+  - Grid 3x3, pesos de raridade por símbolo.
+  - Pagamento por três símbolos iguais em linhas horizontais + bônus de linha.
+  - Bônus adicional para diagonais completas.
+  - Ganho final = soma das ocorrências * valor da aposta.
 
-## Padrão de Entregáveis
+## Mensagens e status
+- **Componente**: `MessageBanner`
+- **Fontes**: `useSlotMachine` define texto e tipo (erro ou sucesso).
+- **Casos**: depósito insuficiente, saldo insuficiente, vitória, tentativa sem prêmio, saque inválido.
 
-- **Artefatos**: Para cada requisito funcional, o artefato correspondente será criado, incluindo código-fonte, testes unitários, documentação e outros artefatos necessários.
-- **Testes**: Incluir scripts de testes para validação dos requisitos. A implementação deve ser testada tanto no nível unitário quanto no de integração.
-- **Versionamento**: Todos os artefatos devem ser versionados corretamente no repositório.
+## Saque simulado
+- **Componente**: `WithdrawModal`
+- **Regras**:
+  - Valor deve ser positivo e ≤ saldo.
+  - Som de `withdraw` em caso de sucesso.
+
+## Configurações
+- **Componente**: `SettingsModal`
+- **Opções**: alternar tema (claro/escuro) e ligar/desligar sons.
+- **Efeito**: aplica tema global e bloqueia reprodução de áudio quando desativado.
+
+## Encerramento de sessão
+- **Componente**: botão na `BottomBar`.
+- **Ação**: exibe mensagem de saída; estado não é persistido.

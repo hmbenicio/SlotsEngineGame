@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { apostasDisponiveis, gridSize, soundUris } from "../constants/game";
 import { formatarBRL } from "../utils/format";
 import { matrixToCells, obterPosicoesVencedoras } from "../utils/grid";
@@ -33,6 +33,7 @@ const useSlotMachine = () => {
 
   const sounds = useSounds(somAtivo);
   const resultadoRef = useRef(null);
+  const saldoAnteriorRef = useRef(saldo);
 
   const setMensagemComTipo = (texto, erro = false) => {
     setMensagem(texto);
@@ -46,6 +47,7 @@ const useSlotMachine = () => {
         "Creditos insuficientes para essa aposta. Insira mais saldo.",
         true
       );
+      sounds.play("error", soundUris.lose);
       return false;
     }
 
@@ -67,11 +69,15 @@ const useSlotMachine = () => {
     setGrid(matrixToCells(resultado.grid, posVitoria, gridSize, simboloDisplay));
     setSaldo((prev) => prev + resultado.ganho);
     setUltimoPremio(resultado.ganho);
-    setMensagemComTipo(
-      resultado.detalhes.length
-        ? resultado.detalhes.join(" | ")
-        : "Nao foi dessa vez. Tente de novo!"
-    );
+    if (resultado.ganho > 0) {
+      setMensagemComTipo("PARABENS!");
+    } else {
+      setMensagemComTipo(
+        resultado.detalhes.length
+          ? resultado.detalhes.join(" | ")
+          : "Nao foi dessa vez. Tente de novo!"
+      );
+    }
     const soundUri = resultado.ganho > 0 ? soundUris.win : soundUris.lose;
     sounds.play(resultado.ganho > 0 ? "win" : "lose", soundUri);
     setGirando(false);
@@ -88,6 +94,7 @@ const useSlotMachine = () => {
     setTotalInserido((prev) => prev + valor);
     setMensagemComTipo(`Credito inserido: ${formatarBRL(valor)}. Boa sorte!`);
     setDeposito("");
+    sounds.play("deposit", soundUris.deposit);
   };
 
   const abrirModalSaque = () => {
@@ -112,6 +119,7 @@ const useSlotMachine = () => {
     setSaldo((prev) => prev - valor);
     setMensagemComTipo(`Voce sacou ${formatarBRL(valor)}. Volte sempre!`);
     setModalSaqueAberto(false);
+    sounds.play("withdraw", soundUris.withdraw);
   };
 
   const toggleTema = () =>
@@ -121,6 +129,14 @@ const useSlotMachine = () => {
     () => (mensagemErro ? "erro" : "info"),
     [mensagemErro]
   );
+
+  useEffect(() => {
+    const saldoAnterior = saldoAnteriorRef.current;
+    if (saldoAnterior > 0 && saldo <= 0) {
+      sounds.play("lose", soundUris.lose);
+    }
+    saldoAnteriorRef.current = saldo;
+  }, [saldo, sounds]);
 
   return {
     aposta,

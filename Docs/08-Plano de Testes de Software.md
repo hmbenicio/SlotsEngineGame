@@ -1,32 +1,36 @@
 # Plano de Testes de Software
 
-> **Pré-requisitos:**  
-> Consulte os documentos relacionados antes de prosseguir: <a href="02-Especificação do Projeto.md"> Especificação do Projeto</a></span>, <a href="04-Projeto de Interface.md"> Projeto de Interface</a>.
+Plano para validar o fluxo principal e os estados críticos do SlotsEngine. Testes são manuais no Expo Go (Android/web) focando no comportamento do front-end.
 
-Este documento apresenta os cenários de testes que serão utilizados na validação da aplicação. O objetivo é demonstrar como os requisitos estão sendo atendidos por meio dos testes realizados.
+## Objetivos
+- Garantir que depósito, aposta, giro e saque funcionem conforme regras.
+- Verificar mensagens de erro/sucesso e atualização de saldo.
+- Confirmar que tema e sons podem ser alternados sem recarregar o app.
 
-**Instruções**:
-1. Enumere os casos de teste de forma sequencial.
-2. Certifique-se de que os requisitos associados a cada caso de teste estão corretamente descritos, conforme a seção "2 - Especificação do Projeto".
+## Escopo
+- Lógica de jogo (`slotLogic.js` e `useSlotMachine`).
+- Componentes de UI que disparam as ações principais.
+- Feedback sonoro/visual básico (não inclui testes automatizados de áudio).
 
-Exemplo de estrutura para os casos de teste:
+## Ambiente
+- Expo CLI + Expo Go em dispositivo Android e navegador (modo web).
+- Node.js 18+, dependências instaladas com `npm install`.
 
-### Caso de Teste 01 – Cadastrar Perfil
+## Casos de teste planejados
 
-| **Campo**                | **Descrição**                                                                                           |
-|:-------------------------|:-------------------------------------------------------------------------------------------------------|
-| **Requisito Associado**   | RF-00X - A aplicação deve apresentar, na página principal, a funcionalidade de cadastro de usuários.     |
-| **Objetivo do Teste**     | Verificar se o usuário consegue se cadastrar na aplicação.                                               |
-| **Passos**                | 1. Acessar o navegador. <br> 2. Informar o endereço do site: `https://adota-pet.herokuapp.com/src/index.html`.<br> 3. Clicar em "Criar conta". <br> 4. Preencher os campos obrigatórios: e-mail, nome, sobrenome, celular, CPF, senha e confirmação de senha. <br> 5. Aceitar os termos de uso. <br> 6. Clicar em "Registrar". |
-| **Critério de Êxito**     | O cadastro deve ser realizado com sucesso, e o usuário deve ser redirecionado para a página de perfil.   |
+| ID | Caso | Passos | Resultado esperado |
+| --- | --- | --- | --- |
+| CT-01 | Depósito mínimo | Inserir R$ 10, confirmar | Mensagem de erro “Depósito mínimo é R$ 20,00” e saldo inalterado |
+| CT-02 | Depósito válido | Inserir R$ 50, confirmar | Saldo = 50, som de depósito, mensagem de sucesso |
+| CT-03 | Giro sem saldo | Sem depositar, tentar girar | Mensagem de erro de saldo insuficiente |
+| CT-04 | Giro com vitória | Depositar, apostar R$ 2, girar até obter linha vencedora | Saldo aumentado pelo pagamento, mensagem “PARABÉNS!” |
+| CT-05 | Giro sem vitória | Depositar, apostar, girar | Saldo debitado, mensagem de tentativa sem prêmio |
+| CT-06 | Saque inválido | Saldo 50, sacar 100 | Mensagem de erro e saldo inalterado |
+| CT-07 | Saque válido | Saldo 50, sacar 30 | Saldo = 20, som de saque, mensagem de sucesso |
+| CT-08 | Alternar tema | Abrir configurações, mudar tema | Cores atualizadas imediatamente |
+| CT-09 | Alternar som | Desligar som e girar | Nenhum áudio reproduzido |
 
----
-
-### Caso de Teste 02 – Efetuar Login
-
-| **Campo**                | **Descrição**                                                                                           |
-|:-------------------------|:-------------------------------------------------------------------------------------------------------|
-| **Requisito Associado**   | RF-00Y - A aplicação deve permitir login por meio do endereço de e-mail do usuário.                      |
-| **Objetivo do Teste**     | Verificar se o usuário consegue realizar login corretamente.                                           |
-| **Passos**                | 1. Acessar o navegador. <br> 2. Informar o endereço do site: `https://adota-pet.herokuapp.com/src/index.html`. <br> 3. Clicar no botão "Entrar". <br> 4. Preencher o campo de e-mail. <br> 5. Preencher o campo da senha. <br> 6. Clicar em "Login". |
-| **Critério de Êxito**     | O login deve ser realizado com sucesso, permitindo o acesso à área restrita do usuário.                 |
+## Critérios de aceitação
+- Todos os casos críticos (CT-01 a CT-07) sem falhas.
+- Mensagens coerentes com a ação executada.
+- Nenhum travamento ou estado inconsistente do saldo/aposta após sequência de giros e saques.

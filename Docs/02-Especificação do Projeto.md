@@ -1,206 +1,89 @@
-# Especificações do Projeto
+# Especificação do Projeto
 
-> **Pré-requisitos**: Consulte a <a href="01-Documentação de Contexto.md"> Documentação de Contexto</a></span> para obter informações adicionais sobre o contexto do projeto.
-
-Esta seção detalha a definição do problema e a ideia de solução a partir da perspectiva do usuário. Aqui, abordamos os diagramas de personas, histórias de usuários, requisitos funcionais e não funcionais, além das restrições do projeto.
-
-A seguir, você encontrará uma visão geral do que será coberto, incluindo as técnicas e ferramentas utilizadas para elaborar as especificações do projeto.
+Este documento detalha personas, histórias de usuário, requisitos e restrições do SlotsEngine. A solução é 100% client-side e foca em demonstrar a lógica de um jogo de slots de forma transparente e didática.
 
 ## Personas
+- **Marina (Jogadora casual, 24)** – quer testar giros rápidos, entender saldo e mensagens sem ler tutoriais.
+- **Carlos (Dev mobile, 29)** – deseja inspecionar o código para reutilizar o hook de lógica e os componentes.
+- **Mentor/avaliador** – precisa confirmar ausência de transações reais e clareza nos limites de aposta/saque.
 
-**Pedro Paulo** tem 26 anos, é arquiteto recém-formado e trabalha de forma autônoma. Seu objetivo é se especializar através de um mestrado fora do país. Ele adora viajar, é solteiro e sempre sonhou em fazer um intercâmbio. Atualmente, está à procura de uma agência que o ajude a encontrar universidades na Europa que aceitem alunos estrangeiros.
+## Histórias de Usuário
 
-Enumere e detalhe as personas relacionadas ao seu projeto, utilizando os documentos e referências abaixo para ajudar na definição:
+| EU COMO... | QUERO/PRECISO... | PARA... |
+| --- | --- | --- |
+| Jogador casual | Depositar um valor e liberar as apostas | Começar a jogar rapidamente |
+| Jogador casual | Escolher valores de aposta pré-definidos | Evitar erros digitando números inválidos |
+| Jogador casual | Ver mensagem clara de vitória/derrota | Entender o resultado de cada giro |
+| Jogador casual | Sacar parte do saldo fictício | Encerrar a sessão com sensação de conclusão |
+| Jogador casual | Silenciar sons e alternar tema | Jogar em ambientes diferentes sem incômodo |
+| Dev/estudante | Consultar regras e pesos de símbolos | Ajustar balanceamento de forma segura |
+| Mentor | Garantir que não há dinheiro real | Validar o objetivo acadêmico/portfólio |
 
-- Lembre-se de personalizar as descrições e detalhar as necessidades de cada persona de forma precisa.
+## Modelagem de Processo
 
-## Histórias de Usuários
-
-Com base na análise das personas, foram identificadas as seguintes histórias de usuários:
-
-| EU COMO... `PERSONA` | QUERO/PRECISO ... `FUNCIONALIDADE` | PARA ... `MOTIVO/VALOR`                  |
-| -------------------- | ---------------------------------- | ---------------------------------------- |
-| Usuário do sistema   | Registrar minhas tarefas           | Não esquecer de fazê-las                 |
-| Administrador        | Alterar permissões                 | Gerenciar as contas de maneira eficiente |
-
-- As histórias de usuários ajudam a capturar os requisitos funcionais e não funcionais de forma clara. Se possível, agrupe as histórias por contexto para facilitar consultas futuras.
-
-## Modelagem do Processo de Negócio
-
-### Análise da Situação Atual
-
-Descreva os problemas atuais que justificam a implementação da sua proposta. Se o sistema já estiver em operação, forneça o modelo atual. Caso contrário, explique como as tarefas seriam realizadas sem o uso de tecnologia.
-
-### Descrição Geral da Proposta
-
-Apresente sua proposta de solução, destacando os limites e as conexões com as estratégias e objetivos do negócio. Além disso, aponte as oportunidades de melhoria que sua solução oferece.
-
-### Processo 1 – NOME DO PROCESSO
-
-Apresente o nome do processo e as oportunidades de melhoria identificadas. Em seguida, insira o modelo do processo, utilizando o padrão BPMN.
-
+### Fluxo principal (depósito → aposta → giro)
 ```mermaid
 flowchart LR
-    Inicio(( )) --> Cotacao[Manejo de Cotação]
-    Cotacao --> Aprovar[Aprovar Pedido]
-    Aprovar -->|Aprovado| Decisao{Aprovado?}
-    Decisao -->|Não| Fim1((( )))
-    Decisao -->|Sim| ParaleloInicio[Início Paralelo]
-    ParaleloInicio --> Pedido[Manejo de Pedido]
-    ParaleloInicio --> Envio[Manejo de Envio]
-    Pedido --> ParaleloFim[Fim Paralelo]
-    Envio --> ParaleloFim
-    ParaleloFim --> Revisar[Revisar Pedido]
-    Revisar --> Fim2((( )))
+    A[Inserir depósito >= R$20] --> B[Saldo atualizado]
+    B --> C[Selecionar aposta]
+    C --> D{Saldo suficiente?}
+    D -- Não --> M[Mensagem de erro]
+    D -- Sim --> E[Girar roleta]
+    E --> F[Calcular ganhos (linhas/diagonais)]
+    F --> G[Atualizar saldo e mensagem]
 ```
 
-### Processo 2 – NOME DO PROCESSO
-
-Da mesma forma, apresente o nome e as oportunidades de melhoria para o processo 2. Inclua também o modelo BPMN do processo.
-
+### Fluxo de saque
 ```mermaid
 flowchart LR
-    Inicio(( )) --> Cotacao[Manejo de Cotação]
-    Cotacao --> Aprovar[[Subprocesso: Aprovar Pedido]]
-    Aprovar -->|Aprovado| Decisao{Aprovado?}
-    Decisao -->|Não| Fim1((( )))
-    Decisao -->|Sim| ParaleloInicio[Início Paralelo]
-    ParaleloInicio --> Pedido[Manejo de Pedido]
-    ParaleloInicio --> Envio[Manejo de Envio]
-    Pedido --> ParaleloFim[Fim Paralelo]
-    Envio --> ParaleloFim
-    ParaleloFim --> Revisar[Revisar Pedido]
-    Revisar --> Fim2((( )))
+    S[Abrir modal de saque] --> V[Validar valor <= saldo]
+    V -- Inválido --> ME[Mensagem de erro]
+    V -- Válido --> A[Abater saldo e confirmar]
 ```
 
-## Indicadores de Desempenho
-
-Defina os principais indicadores de desempenho e estabeleça metas para o projeto. As informações necessárias para gerar esses indicadores devem ser capturadas no diagrama de classes, que será detalhado posteriormente.
-
-Modelo sugerido:
-
-| Indicador                   | Objetivos                                                             | Descrição                                                 | Cálculo | Fonte dados         | Perspectiva               |
-| --------------------------- | --------------------------------------------------------------------- | --------------------------------------------------------- | ------- | ------------------- | ------------------------- |
-| Percentual reclamações      | Avaliar quantitativamente as reclamações                              | Percentual de reclamações em relação ao total atendimento |         | Tabela reclamações  | Aprendizado e Crescimento |
-| Taxa de Requisições abertas | Melhorar a prestação de serviços medindo a porcentagem de requisições | Mede % de requisições atendidas na semana                 | \*100   | Tabela solicitações | Processos internos        |
-| Taxa de entrega de material | Manter controle sobre os materiais que estão sendo entregues          | Mede % de material entregue dentro do mês                 |         | Tabela Pedidos      | Clientes                  |
+## Indicadores
+- **Tempo de resposta do giro**: manter feedback (mensagem + animação) em < 1s após clique.
+- **Erros de input**: zero giros permitidos com saldo insuficiente ou depósito abaixo do mínimo.
+- **Cobertura manual de cenários críticos**: depósito, giro com vitória, giro sem saldo, saque inválido, troca de tema/som.
 
 ## Requisitos
 
-A seguir, os requisitos funcionais e não funcionais detalham o escopo do projeto. Para definir as prioridades, use uma técnica de priorização de requisitos e explique como ela foi aplicada.
-
 ### Requisitos Funcionais
-
-| ID     | Descrição do Requisito                  | Prioridade | Responsável           |
-| ------ | --------------------------------------- | ---------- | --------------------- |
-| RF-001 | Permitir que o usuário cadastre tarefas | ALTA       | Nome do Desenvolvedor |
-| RF-002 | Emitir um relatório de tarefas no mês   | MÉDIA      | Nome do Desenvolvedor |
+| ID | Descrição | Prioridade | Responsável |
+| --- | --- | --- | --- |
+| RF-01 | Permitir depósito mínimo de R$ 20 para liberar apostas | Alta | Frontend |
+| RF-02 | Validar saldo antes de cada giro e bloquear aposta inválida | Alta | Frontend |
+| RF-03 | Sortear símbolos com pesos de raridade e calcular pagamentos por linhas/diagonais | Alta | Frontend |
+| RF-04 | Exibir banner de mensagem com resultado (ganho, erro, aviso) | Alta | Frontend |
+| RF-05 | Registrar última aposta e último prêmio exibidos em tela | Média | Frontend |
+| RF-06 | Simular saque abatendo o saldo disponível | Média | Frontend |
+| RF-07 | Permitir ligar/desligar sons e alternar tema claro/escuro | Média | Frontend |
 
 ### Requisitos Não Funcionais
-
-| ID      | Descrição do Requisito                                                  | Prioridade |
-| ------- | ----------------------------------------------------------------------- | ---------- |
-| RNF-001 | O sistema deve ser responsivo para dispositivos móveis                  | MÉDIA      |
-| RNF-002 | O sistema deve processar requisições do usuário em no máximo 3 segundos | BAIXA      |
-
-Classifique os requisitos como funcionais (RF) ou não funcionais (RNF), e lembre-se de garantir que todas as histórias de usuário sejam cobertas. Os requisitos funcionais tratam de funcionalidades da aplicação, enquanto os não funcionais dizem respeito a aspectos técnicos, como desempenho ou usabilidade.
+| ID | Descrição | Prioridade |
+| --- | --- | --- |
+| RNF-01 | App deve operar offline após carregado (exceto sons remotos) | Média |
+| RNF-02 | Mensagens devem ser concisas (máx. ~120 caracteres) para caber em mobile | Alta |
+| RNF-03 | Navegação deve funcionar em telas pequenas (celular) e modo web do Expo | Média |
+| RNF-04 | Código organizado em componentes e hooks reutilizáveis | Alta |
 
 ## Restrições
+| ID | Restrição |
+| --- | --- |
+| R-01 | Não há transações financeiras reais; todos os valores são fictícios |
+| R-02 | Projeto deve ser executável via Expo sem backend |
+| R-03 | Sons dependem de URLs externas; offline, os áudios não tocam |
 
-O projeto tem as seguintes restrições:
+## Matriz de Rastreabilidade (resumo)
 
-| ID  | Restrição                                             |
-| --- | ----------------------------------------------------- |
-| 01  | O projeto deverá ser entregue até o final do semestre |
-| 02  | Não pode ser desenvolvido um módulo de backend        |
+| Item | RF-01 | RF-02 | RF-03 | RF-04 | RF-05 | RF-06 | RF-07 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Depósito mínimo | X |  |  |  |  |  |  |
+| Giro validado |  | X | X | X | X |  |  |
+| Mensagens |  |  |  | X | X |  |  |
+| Saque |  |  |  |  |  | X |  |
+| Tema/Som |  |  |  |  |  |  | X |
 
-Detalhe as restrições que limitam sua solução. As restrições muitas vezes determinam o que pode ou não ser feito durante o desenvolvimento.
-
-## Diagrama de Casos de Uso
-
-O diagrama de casos de uso é uma ferramenta essencial após a elicitação de requisitos. Ele oferece uma representação gráfica das interações entre os usuários e o sistema, identificando atores, casos de uso e seus relacionamentos.
-
-## Matriz de Rastreabilidade
-
-A matriz de rastreabilidade ajuda a mapear a relação entre os requisitos e outros artefatos, como objetivos de negócio. Ela facilita o acompanhamento e a verificação do cumprimento dos requisitos.
-
-|        | MK  | RF-01 | RNF-01 | TC01 | TC02 | M100 | DC-01 | GV  | RF-02 |
-| ------ | --- | ----- | ------ | ---- | ---- | ---- | ----- | --- | ----- |
-| MK     |     |       |        |      |      |      |       |     |       |
-| RF-01  |     |       |        |      |      |      |       |     |       |
-| RNF-01 |     |       |        |      |      |      |       |     |       |
-| TC01   |     |       |        |      |      |      |       |     |       |
-| TC02   |     |       |        |      |      |      |       |     |       |
-| M100   |     |       |        |      |      |      |       |     |       |
-| DC-01  |     |       |        |      |      |      |       |     |       |
-| GV     |     |       |        |      |      |      |       |     |       |
-| RF-02  |     |       |        |      |      |      |       |     |       |
-
----
-
-# Gerenciamento de Projeto
-
-O gerenciamento de projeto, segundo o PMBoK v6, envolve dez áreas essenciais: Integração, Escopo, Cronograma, Custos, Qualidade, Recursos, Comunicações, Riscos, Aquisições e Partes Interessadas. Cada uma dessas áreas se inter-relaciona e é fundamental para o sucesso do projeto.
-
-## Gerenciamento de Tempo
-
-Ferramentas como diagramas e gráficos de Gantt ajudam a organizar as atividades e a estimar prazos de conclusão. Essas ferramentas são essenciais para o controle eficiente do cronograma.
-
-**Exemplo:**
-
-> #### Diagrama de Rede de Atividades
->
-> - Este diagrama representa a sequência de atividades para a entrega, instalação e aceitação de equipamentos e software.
->
-> #### Fluxo de Atividades:
-
-```mermaid
-flowchart LR
-    A1["Atividade 1 (01) Entregar equipamentos."] --> A2["Atividade 2 (24) Testar equipamentos."]
-    A1 --> A4["Atividade 4 (88) Escrever programas."]
-    A2 --> A3["Atividade 3 (60) Instalar equipamentos."]
-    A4 --> A5["Atividade 5 (30) Testar e depurar."]
-    A5 --> A6["Atividade 6 (10) Treinar usuários."]
-    A3 --> A7["Atividade 7 (15) Aceitação"]
-    A6 --> A7
-```
-**Exemplo:**
-> #### Gráfico de Gantt:
-> Aqui está o gráfico de Gantt baseado nas atividades e suas dependências. Ele mostra a sequência e a duração de cada tarefa ao longo do tempo, começando em 1º de janeiro de 2025.
-
-![Gráfico de Gantt](img/GraficoGantt.png)
-
-## Gerenciamento de Equipe
-
-Uma gestão de equipe bem organizada melhora a produtividade do projeto. Ferramentas de controle de tarefas são fundamentais para garantir o bom andamento do trabalho em equipe.
-
-> - #### CRONOGRAMA DE PROJETO SIMPLES - 2025
-
-| Nome da Equipe          | Atividade                                   | Data de Início | Data de Término | Observações |
-| ----------------------- | ------------------------------------------- | -------------- | --------------- | ----------- |
-| **Equipe de Marketing** | Definir Expectativas do Cliente             | 07-Ago-2025    | 11-Ago-2025     |             |
-|                         | Formalizar Abordagem                        | 14-Ago-2025    | 25-Ago-2025     |             |
-|                         | Elaborar um Plano de Trabalho               | 21-Ago-2025    | 01-Set-2025     |             |
-|                         | Contratual: Receber Feedback                | 04-Set-2025    | 08-Set-2025     |             |
-|                         | **MS: Enviar plano de trabalho**            | 11-Set-2025    | 15-Set-2025     | Marco (MS)  |
-| **Grupo de Interface**  | Concordar com um Plano                      | 14-Ago-2025    | 18-Ago-2025     |             |
-|                         | Concordar com a Abordagem                   | 21-Ago-2025    | 25-Ago-2025     |             |
-|                         | Configurar GUI                              | 28-Ago-2025    | 08-Set-2025     |             |
-|                         | Contratual: Receber Feedback                | 11-Set-2025    | 15-Set-2025     |             |
-| **Equipe de QM**        | Testar Valores #1                           | 04-Set-2025    | 29-Set-2025     |             |
-|                         | Contratual: Receber Feedback                | 02-Out-2025    | 06-Out-2025     |             |
-|                         | **MS: Enviar plano de relatório de testes** | 09-Out-2025    | 13-Out-2025     | Marco (MS)  |
-
-## Gestão de Orçamento
-
-O orçamento do projeto deve ser gerido com base nos dados do escopo e do tempo, além dos custos envolvidos em cada etapa.
-
-> - #### ORÇAMENTO
-   | Recursos Necessários | Valor (R$)     |
-   | -------------------- | -------------- |
-   | Recursos humanos     | 200.000,00     |
-   | Hardware             | 25.000,00      |
-   | Rede                 | 2.400,00       |
-   | Software             | 24.000,00      |
-   | Serviços             | 5.000,00       |
-   | **TOTAL**            | **256.400,00** |
+## Gerenciamento de Projeto (resumo)
+- **Ferramentas**: GitHub para versionamento, Expo Go para testes manuais, Quadros simples (Trello/Issues) para tarefas.
+- **Riscos chave**: dependência de internet para sons, ajustes de balanceamento (pesos e pagamentos) afetando percepção de fairness.

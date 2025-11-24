@@ -1,33 +1,33 @@
 # Projeto de Interface
 
-> **Pré-requisitos**: Consulte a <a href="02-Especificação do Projeto.md"> Especificação do Projeto</a> para obter detalhes sobre os requisitos funcionais, não funcionais e as histórias de usuário que guiaram o desenvolvimento da interface.
+O app é composto por uma única tela com seções bem delimitadas para manter o fluxo linear (depositar → apostar → girar → sacar/configurar). A navegação acontece em scroll vertical curto e modais.
 
-Este documento descreve as principais interfaces da plataforma, com foco na interação do usuário, fluxos de navegação e os protótipos interativos que demonstram as funcionalidades do sistema. A elaboração das interfaces segue as diretrizes e necessidades definidas na documentação de especificação, visando atender aos requisitos e expectativas do usuário.
+## Estrutura de tela
+- **Header**: saldo atual (BRL), última aposta e último prêmio.
+- **Depósito**: campo numérico, botão de confirmar e mensagem de validação do mínimo (R$ 20).
+- **Apostas**: selector com valores pré-definidos e botão de “Girar”.
+- **Tabuleiro 3x3**: exibe símbolos sorteados e destaca linhas/diagonais vencedoras.
+- **Banner de mensagem**: comunica vitórias, erros e avisos.
+- **Estatísticas**: total depositado e saldo atualizado.
+- **Barra inferior**: atalhos para modal de saque, modal de configurações e encerramento de sessão (mensagem).
 
-## Diagrama de Fluxo
+## Fluxos de navegação
+- **Depositar**: o usuário insere o valor, confirma e recebe feedback sonoro/visual. Ao atingir R$ 20 libera o botão de giro.
+- **Girar**: seleção da aposta → validação de saldo → animação de giro → mensagem de resultado.
+- **Saque**: modal dedicado, validação do valor (não pode ultrapassar o saldo) e atualização imediata da tela.
+- **Configurações**: alternância de tema e som aplicadas instantaneamente.
 
-O diagrama de fluxo apresenta o caminho de interação do usuário com o sistema, sem a necessidade de detalhamento imediato do design das telas. Este diagrama é essencial para mapear as principais ações e navegação que o usuário realizará dentro do sistema. Ele ajuda a planejar as interações e assegura que o wireframe final seja eficaz e intuitivo.
+## Layout e responsividade
+- O layout prioriza legibilidade em celulares, com espaçamento confortável e botões largos.
+- Tema claro/escuro ajusta cores de fundo, texto e realces mantendo contraste mínimo recomendável.
+- No modo web do Expo o conteúdo se recentraliza mantendo largura máxima para não esticar componentes.
 
-### Elementos do Diagrama de Fluxo
+## Estados e feedback
+- **Erros**: mensagens curtas (“Créditos insuficientes...”, “Depósito mínimo é R$ 20,00”).
+- **Sucesso**: “PARABÉNS!” em vitórias; detalhes exibidos quando há múltiplos bônus.
+- **Som**: efeitos distintos para giro, vitória, erro, depósito e saque.
 
-O diagrama é composto por "caixas" (boxes) que representam as principais funcionalidades do sistema, como menus, botões e acessos, e as interações que o usuário pode realizar, como editar, pesquisar, filtrar e configurar. As conexões entre essas caixas indicam o fluxo de navegação do usuário.
-
-```mermaid
-flowchart LR
-    Inicio(( )) --> Acao1[Ação 1]
-    Acao1 --> Acao2[Ação 2]
-    Acao2 --> Decisao{Decisão}
-    Decisao -->|Sim| Acao3[Ação 3]
-    Decisao -->|Não| Acao4[Ação 4]
-    Acao3 --> Acao5[Ação 5]
-    Acao4 --> Acao5
-    Acao5 --> Fim((( )))
-```
-
-## Wireframes
-
-Os wireframes são protótipos iniciais de design utilizados para estruturar a interface de usuário de uma aplicação ou site. Eles servem como um esboço para definir a disposição dos elementos da interface e como as páginas se relacionam. No contexto do projeto, os wireframes ajudam a visualizar a estrutura da interface sem a preocupação com o design visual final.
-
-Os wireframes são fundamentais para testar e iterar o layout da interface, garantindo que a navegação e as funcionalidades estejam claras e fáceis de usar antes de iniciar o design visual mais detalhado.
-
-![Exemplo de Wireframe](img/Wireframes.png)
+## Acessibilidade e usabilidade
+- Texto conciso e botões com rótulos claros.
+- Estados de carregamento mínimos; a rotação é a única animação mais longa.
+- Não há dependência de teclado além dos campos numéricos de depósito e saque.
