@@ -6,12 +6,31 @@ SlotsEngine e um aplicativo 100% client-side em React Native com Expo. Toda a lo
 
 ```mermaid
 flowchart LR
-    User[Usuario] --> App[App (Expo)]
-    App --> Pages[Pages: Login / Create / Casino / Profile]
-    Pages --> Logic[Hook useSlotMachine + slotLogic.js]
-    Logic --> UI[Componentes de UI (Deposito, Apostas, Tabuleiro, Modais)]
-    UI --> Sons[Expo AV (URLs remotas)]
-    Logic --> Data[Constantes (game/theme) + utils]
+    %% --------- ESTILO CORPORATIVO ---------
+    classDef node fill:#ffffff,stroke:#1f2937,stroke-width:1.2px,color:#1f2937,font-size:14px,font-weight:bold;
+    classDef center fill:#f3f4f6,stroke:#1f2937,stroke-width:1.5px,color:#1f2937,font-size:14px,font-weight:bold;
+
+    %% --------- NÓS ---------
+    User["Usuário"]
+    App["App (Expo)"]
+    Pages["Páginas: Login / Create / Casino / Profile"]
+    Logic["Lógica: useSlotMachine + slotLogic.js"]
+    UI["Componentes de UI: Depósito / Apostas / Tabuleiro / Modais"]
+    Sons["Sons (Expo AV - URLs remotas)"]
+    Data["Constantes (game/theme) e utils"]
+
+    %% --------- CLASSES ---------
+    class User,App,Pages,UI,Sons node;
+    class Logic,Data center;
+
+    %% --------- RELAÇÕES ---------
+    User --> App
+    App --> Pages
+    Pages --> Logic
+    Logic --> UI
+    UI --> Sons
+    Logic --> Data
+
 ```
 
 
