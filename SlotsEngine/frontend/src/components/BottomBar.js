@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { styles } from "../styles/main";
 
-const BottomBar = ({ temaAtivo, onInfo, onExit, onOpenSettings }) => (
+const BottomBar = ({ temaAtivo, onProfile, onExit, onOpenSettings }) => (
   <View
     style={[
       styles.bottomBar,
@@ -12,7 +12,7 @@ const BottomBar = ({ temaAtivo, onInfo, onExit, onOpenSettings }) => (
       },
     ]}
   >
-    <TouchableOpacity style={styles.iconButton} onPress={onInfo}>
+    <TouchableOpacity style={styles.iconButton} onPress={onProfile}>
       <Text style={[styles.bottomIcon, { color: temaAtivo.text }]}>👤</Text>
     </TouchableOpacity>
     <TouchableOpacity
@@ -30,7 +30,7 @@ const BottomBar = ({ temaAtivo, onInfo, onExit, onOpenSettings }) => (
       </Text>
     </TouchableOpacity>
     <TouchableOpacity style={styles.iconButton} onPress={onOpenSettings}>
-      <Text style={[styles.bottomIcon, { color: temaAtivo.text }]}>⚙️</Text>
+      <Text style={[styles.bottomIcon, { color: temaAtivo.text }]}>⚙</Text>
     </TouchableOpacity>
   </View>
 );

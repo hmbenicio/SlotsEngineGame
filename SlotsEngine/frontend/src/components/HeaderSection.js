@@ -2,14 +2,18 @@ import React from "react";
 import { Text, View } from "react-native";
 import { styles } from "../styles/main";
 
-const HeaderSection = ({ temaAtivo, responsiveStyles }) => (
+const HeaderSection = ({ temaAtivo, responsiveStyles, accentColor }) => {
+  const titleColor = accentColor || temaAtivo.text;
+  const subtitleColor = accentColor || temaAtivo.subtext;
+
+  return (
   <View style={styles.header}>
     <View>
       <Text
         style={[
           styles.title,
           responsiveStyles.title,
-          { color: temaAtivo.text },
+          { color: titleColor },
         ]}
       >
         MEU CASSINO
@@ -18,7 +22,7 @@ const HeaderSection = ({ temaAtivo, responsiveStyles }) => (
         style={[
           styles.discreet,
           responsiveStyles.discreet,
-          { color: temaAtivo.subtext },
+          { color: subtitleColor },
         ]}
       >
         So vale combinacao horizontal ou transversal.
@@ -44,7 +48,8 @@ const HeaderSection = ({ temaAtivo, responsiveStyles }) => (
       </Text>
     </View>
   </View>
-);
+  );
+};
 
 export default HeaderSection;
 
