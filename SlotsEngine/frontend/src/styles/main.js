@@ -171,9 +171,11 @@ export const styles = StyleSheet.create({
     borderRadius: 14,
     padding: 12,
     borderWidth: 2,
+    alignItems: "center",
   },
   messageText: {
     fontWeight: "700",
+    textAlign: "center",
   },
   modalOverlay: {
     flex: 1,
