@@ -41,7 +41,7 @@ Foram usados benchmarks simples: inspeção de apps de slots populares, entrevis
 
 ## Mapa de stakeholders
 
-```mermaid
+```
 flowchart TB
     U[Jogadores ocasionais] -->|Feedback de UX| Equipe
     D[Devs/estudantes] -->|Contribuicoes e ajustes| Equipe
