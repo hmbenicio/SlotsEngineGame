@@ -10,8 +10,10 @@ flowchart LR
     App --> Pages[Pages: Login / Create / Casino / Profile]
     Pages --> Logic[Hook useSlotMachine + slotLogic.js]
     Logic --> UI[Componentes de UI (Deposito, Apostas, Tabuleiro, Modais)]
-    Pages --> Sons[Expo AV (URLs remotas)]
+    UI --> Sons[Expo AV (URLs remotas)]
+    Logic --> Data[Constantes (game/theme) + utils]
 ```
+
 
 - **Pages**: `src/pages` contem `LoginPage`, `CreateAccountPage`, `CasinoPage` (cassino principal) e `ProfilePage` (dados do usuario).
 - **UI**: componentes em `src/components` organizam secoes (header, deposito, apostas, tabuleiro, estatisticas, modais).

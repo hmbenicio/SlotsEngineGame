@@ -24,14 +24,16 @@ Este documento detalha personas, histórias de usuário, requisitos e restriçõ
 ### Fluxo principal (depósito → aposta → giro)
 ```mermaid
 flowchart LR
-    A[Inserir depósito >= R$20] --> B[Saldo atualizado]
+    A[Inserir deposito >= R$20] --> B[Saldo atualizado]
     B --> C[Selecionar aposta]
     C --> D{Saldo suficiente?}
-    D -- Não --> M[Mensagem de erro]
+    D -- Nao --> M[Mensagem de erro]
     D -- Sim --> E[Girar roleta]
     E --> F[Calcular ganhos (linhas/diagonais)]
     F --> G[Atualizar saldo e mensagem]
+    G --> C
 ```
+
 
 ### Fluxo de saque
 ```mermaid

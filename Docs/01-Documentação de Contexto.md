@@ -44,10 +44,13 @@ Foram usados benchmarks simples: inspeção de apps de slots populares, entrevis
 ```mermaid
 flowchart TB
     U[Jogadores ocasionais] -->|Feedback de UX| Equipe
-    D[Devs/estudantes] -->|Contribuições e ajustes| Equipe
-    M[Mentores/avaliadores] -->|Critérios de entrega| Equipe
+    D[Devs/estudantes] -->|Contribuicoes e ajustes| Equipe
+    M[Mentores/avaliadores] -->|Criterios de validacao| Equipe
     Equipe --> App[SlotsEngine (frontend)]
     App --> U
+    App --> D
+    App --> M
 ```
+
 
 O entendimento desses perfis guiou mensagens curtas, limites claros de valores e a escolha por não depender de backend.
