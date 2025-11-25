@@ -29,6 +29,12 @@ O projeto e um app mobile em React Native rodando no Expo. Nao ha backend: toda 
 
 ## 2. Historico de Versoes
 
+### [0.1.1] - 24/11/2025
+#### Alterado
+- Animacao de giro em estilo carrossel (colunas descendo em loop continuo), com parada sequencial de cada coluna.
+- Som de giro atualizado para timbre de roleta/slot online (URIs em `src/constants/game.js`).
+- Ajuste de responsividade do tabuleiro para evitar que o grid extravase o card.
+
 ### [0.1.0] - 24/11/2025
 #### Adicionado
 - Maquina de slots 3x3 com sorteio ponderado por raridade e pagamentos para linhas e diagonais.
@@ -43,7 +49,7 @@ O projeto e um app mobile em React Native rodando no Expo. Nao ha backend: toda 
 ## 3. Utilizacao
 
 - **Depositar**: informe um valor minimo de R$ 20 e confirme para liberar as apostas.
-- **Apostar e girar**: escolha o valor da aposta, pressione "Girar roleta" e acompanhe o banner de resultado. O saldo e debitado antes da rodada e creditado apos o calculo de ganhos.
+- **Apostar e girar**: escolha o valor da aposta, pressione "Girar roleta" e acompanhe o banner de resultado. O grid anima como carrossel (coluna por coluna) e para em sequencia. O saldo e debitado antes da rodada e creditado apos o calculo de ganhos.
 - **Saque simulado**: abra o modal de saque, informe um valor ate o saldo disponivel e uma chave PIX para confirmar; o valor e abatido na hora.
 - **Configuracoes**: ligue/desligue sons e alterne entre tema claro/escuro no modal dedicado.
 - **Cadastro**: preencha dados com mascaras de CPF/data/telefone/CEP. Ao digitar um CEP valido, a tela tenta preencher endereco/bairro/cidade/UF via ViaCEP.

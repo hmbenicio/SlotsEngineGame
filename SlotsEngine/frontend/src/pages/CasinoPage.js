@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   View,
   useWindowDimensions,
+  Easing,
 } from "react-native";
 import BottomBar from "../components/BottomBar";
 import BetSelector from "../components/BetSelector";
@@ -52,6 +53,7 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
     toggleTema,
     prepararRodada,
     aplicarResultado,
+    finalizarGirando,
     handleDepositar,
     abrirModalSaque,
     confirmarSaque,
@@ -80,6 +82,9 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
     const gridInnerPadding = 12;
     return (gridWidth - gaps * 2 - gridInnerPadding * 2) / gridSize;
   }, [gridWidth]);
+  const [colunasGirando, setColunasGirando] = useState(
+    Array(gridSize).fill(false)
+  );
 
   const responsiveStyles = useMemo(
     () => ({
@@ -122,10 +127,27 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
   ]).current;
   const spinLoops = useRef([]);
   const timeoutRef = useRef(null);
+  const spinTimersRef = useRef([]);
+
+  const limparTimers = () => {
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    spinTimersRef.current.forEach((timer) => clearTimeout(timer));
+    spinTimersRef.current = [];
+  };
+
+  const atualizarColunaGirando = (idx, ativa) =>
+    setColunasGirando((prev) => {
+      const next = [...prev];
+      next[idx] = ativa;
+      return next;
+    });
 
   useEffect(
     () => () => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      limparTimers();
       spinLoops.current.forEach((loop) => loop && loop.stop && loop.stop());
     },
     []
@@ -134,29 +156,59 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
   const pararAnimacao = () => {
     spinLoops.current.forEach((loop) => loop && loop.stop && loop.stop());
     spinColumns.forEach((value) => value.setValue(0));
+    setColunasGirando(Array(gridSize).fill(false));
   };
 
   const iniciarAnimacao = () => {
-    spinLoops.current.forEach((loop) => loop && loop.stop && loop.stop());
-    spinColumns.forEach((value) => value.setValue(0));
-    spinLoops.current = spinColumns.map((value, idx) =>
+    limparTimers();
+    pararAnimacao();
+    spinLoops.current = spinColumns.map((value) =>
       Animated.loop(
-        Animated.sequence([
-          Animated.timing(value, {
-            toValue: 1,
-            duration: 200,
-            delay: idx * 80,
-            useNativeDriver: true,
-          }),
-          Animated.timing(value, {
-            toValue: 0,
-            duration: 200,
-            useNativeDriver: true,
-          }),
-        ])
+        Animated.timing(value, {
+          toValue: 1,
+          duration: 240,
+          easing: Easing.linear,
+          useNativeDriver: true,
+        })
       )
     );
-    spinLoops.current.forEach((loop) => loop.start());
+
+    spinLoops.current.forEach((loop, idx) => {
+      const timer = setTimeout(() => {
+        Animated.timing(spinColumns[idx], {
+          toValue: 1,
+          duration: 260,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }).start(() => {
+          spinColumns[idx].setValue(0);
+          loop.start();
+          atualizarColunaGirando(idx, true);
+        });
+      }, idx * 120);
+      spinTimersRef.current.push(timer);
+    });
+  };
+
+  const pararAnimacaoSequencial = () => {
+    spinLoops.current.forEach((loop, idx) => {
+      const timer = setTimeout(() => {
+        loop && loop.stop && loop.stop();
+        Animated.timing(spinColumns[idx], {
+          toValue: 1,
+          duration: 420 + idx * 30,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }).start(() => {
+          spinColumns[idx].setValue(0);
+          atualizarColunaGirando(idx, false);
+          if (idx === gridSize - 1) {
+            finalizarGirando();
+          }
+        });
+      }, idx * 220);
+      spinTimersRef.current.push(timer);
+    });
   };
 
   const handleGirar = () => {
@@ -165,9 +217,9 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
 
     iniciarAnimacao();
     timeoutRef.current = setTimeout(() => {
-      aplicarResultado();
-      pararAnimacao();
-    }, 300);
+      aplicarResultado(false);
+      pararAnimacaoSequencial();
+    }, 1600);
   };
 
   const handleExit = () => {
@@ -273,7 +325,7 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
             responsiveStyles={responsiveStyles}
             cellSize={cellSize}
             gridWidth={gridWidth}
-            girando={girando}
+            colunasGirando={colunasGirando}
             spinColumns={spinColumns}
             gridSize={gridSize}
           />
