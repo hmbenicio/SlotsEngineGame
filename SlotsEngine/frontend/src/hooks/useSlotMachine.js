@@ -73,10 +73,10 @@ const useSlotMachine = () => {
     return true;
   };
 
-  const aplicarResultado = () => {
+  const aplicarResultado = (encerrarGirando = true) => {
     const resultado = resultadoRef.current;
     if (!resultado) {
-      setGirando(false);
+      if (encerrarGirando) setGirando(false);
       return;
     }
     const posVitoria = obterPosicoesVencedoras(resultado.grid, gridSize);
@@ -94,7 +94,7 @@ const useSlotMachine = () => {
     }
     const soundUri = resultado.ganho > 0 ? soundUris.win : soundUris.lose;
     sounds.play(resultado.ganho > 0 ? "win" : "lose", soundUri);
-    setGirando(false);
+    if (encerrarGirando) setGirando(false);
     resultadoRef.current = null;
   };
 
@@ -190,6 +190,7 @@ const useSlotMachine = () => {
     confirmarSaque,
     setMensagemComTipo,
     totalInserido,
+    finalizarGirando: () => setGirando(false),
   };
 };
 

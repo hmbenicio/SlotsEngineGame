@@ -1,11 +1,12 @@
 # SlotsEngine (Expo + React Native)
 
-Aplicacao mobile de slot machine construída em React Native com Expo. Permite inserir creditos, escolher apostas, girar a roleta com animacao, conferir ganhos e sacar valores simulados. Inclui alternancia de tema (dark/light) e controles de som.
+Aplicacao mobile de slot machine construida em React Native com Expo. Permite inserir creditos, escolher apostas, girar a roleta em animacao estilo carrossel (coluna por coluna) e sacar valores simulados. Inclui alternancia de tema (dark/light) e controles de som.
 
 ## Funcionalidades
 - Deposito minimo de R$ 20,00 com feedback sonoro e mensagem de confirmacao.
 - Seletores de aposta predefinidos (2 ate 100) e validacao de saldo antes de cada giro.
-- Tabuleiro 3x3 com animacao de giro, deteccao de vitorias por linhas horizontais, diagonais e combinacoes de tres simbolos iguais com premios graduais por raridade.
+- Tabuleiro 3x3 com animacao carrossel por coluna (desce de forma continua), parada sequencial e destaque de linhas vencedoras.
+- Som de giro com timbre de roleta/slot online, alem de efeitos para ganho, perda, deposito e saque.
 - Mensagens dinamicas de resultado (ganho, tentativa sem premio, erros de saldo/entrada) e banner de status.
 - Modal de saque no layout dourado/escuro (naipes e titulo destacado), com mascara monetaria BRL em tempo real (ex.: 1.000,00) iniciando vazia e atualizacao imediata dos creditos.
 - Modal de configuracao para ligar/desligar sons e alternar tema claro/escuro.
@@ -18,7 +19,8 @@ Aplicacao mobile de slot machine construída em React Native com Expo. Permite i
 - Hooks personalizados para maquina de slots (`useSlotMachine`) e sons (`useSounds`)
 
 ## Estrutura principal
-- `App.js`: container principal, estilos responsivos, animacao das colunas e composicao das secoes.
+- `App.js`: container principal das telas (login, cadastro, perfil, cassino).
+- `src/pages/CasinoPage.js`: layout responsivo do tabuleiro, botoes e animacao carrossel por coluna.
 - `src/hooks/useSlotMachine.js`: regra de negocio de saldo, apostas, rodada, saque, temas e mensagens.
 - `src/game/slotLogic.js`: sorteio ponderado de simbolos, calculo de pagamentos e montagem da matriz 3x3.
 - `src/components/*`: UI de deposito, apostas, tabuleiro, estatisticas, modais e barra inferior.
@@ -46,9 +48,9 @@ npm start           # abre o menu do Expo (use a para Android, i para iOS, w par
 ```
 
 Scripts adicionais:
-- `npm run android` – inicia com alvo Android configurado.
-- `npm run ios` – inicia com alvo iOS.
-- `npm run web` – executa no navegador.
+- `npm run android` - inicia com alvo Android configurado.
+- `npm run ios` - inicia com alvo iOS.
+- `npm run web` - executa no navegador.
 
 ## Notas
 - Os efeitos sonoros usam URLs externas; e necessario estar online para tocar os audios.
