@@ -10,6 +10,19 @@ import {
 } from "../game/slotLogic";
 import useSounds from "./useSounds";
 
+const onlyDigits = (value = "") => value.replace(/\D/g, "");
+
+const formatarValorSaqueInput = (valor) => {
+  const digits = onlyDigits(valor);
+  if (!digits) return "";
+
+  const padded = digits.padStart(3, "0"); // garante pelo menos 3 dígitos para 1,00
+  const inteiro = padded.slice(0, -2).replace(/^0+/, "") || "0";
+  const centavos = padded.slice(-2);
+  const inteiroFormatado = inteiro.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return `${inteiroFormatado},${centavos}`;
+};
+
 const useSlotMachine = () => {
   const [saldo, setSaldo] = useState(0);
   const [totalInserido, setTotalInserido] = useState(0);
@@ -27,6 +40,7 @@ const useSlotMachine = () => {
   const [modalSaqueAberto, setModalSaqueAberto] = useState(false);
   const [modalConfigAberto, setModalConfigAberto] = useState(false);
   const [valorSaque, setValorSaque] = useState("");
+  const [chavePix, setChavePix] = useState("");
   const [girando, setGirando] = useState(false);
   const [somAtivo, setSomAtivo] = useState(true);
   const [tema, setTema] = useState("dark");
@@ -102,12 +116,14 @@ const useSlotMachine = () => {
       setMensagemComTipo("Nenhum credito disponivel para saque.", true);
       return;
     }
-    setValorSaque(String(saldo));
+    setValorSaque("");
+    setChavePix("");
     setModalSaqueAberto(true);
   };
 
   const confirmarSaque = () => {
-    const valor = Number(valorSaque);
+    const digits = onlyDigits(valorSaque);
+    const valor = Number(digits) / 100;
     if (Number.isNaN(valor) || valor <= 0) {
       setMensagemComTipo("Valor invalido para saque.", true);
       return;
@@ -116,9 +132,14 @@ const useSlotMachine = () => {
       setMensagemComTipo("Valor solicitado excede o saldo disponivel.", true);
       return;
     }
+    if (!chavePix.trim()) {
+      setMensagemComTipo("Informe a chave PIX para concluir o saque.", true);
+      return;
+    }
     setSaldo((prev) => prev - valor);
     setMensagemComTipo(`Voce sacou ${formatarBRL(valor)}. Volte sempre!`);
     setModalSaqueAberto(false);
+    setChavePix("");
     sounds.play("withdraw", soundUris.withdraw);
   };
 
@@ -154,7 +175,9 @@ const useSlotMachine = () => {
     modalConfigAberto,
     setModalConfigAberto,
     valorSaque,
-    setValorSaque,
+    setValorSaque: (valor) => setValorSaque(formatarValorSaqueInput(valor)),
+    chavePix,
+    setChavePix,
     girando,
     somAtivo,
     setSomAtivo,

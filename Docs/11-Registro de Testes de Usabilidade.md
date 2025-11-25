@@ -1,18 +1,19 @@
 # Registro de Testes de Usabilidade
 
-Resultados de sessões rápidas com 3 participantes usando Expo Go (Android).
+Resultados de sessoes rapidas com 3 participantes usando Expo Go (Android).
 
-| Participante | Tarefas concluídas | Tempo até 1º giro | Mensagens de erro vistas | Observações |
+| Participante | Tarefas concluidas | Tempo ate 1o giro | Mensagens de erro vistas | Observacoes |
 | --- | --- | --- | --- | --- |
-| P1 (casual) | 5/5 | 45s | 1 (depósito < 20) | Após mensagem, ajustou o depósito sem ajuda |
-| P2 (casual) | 5/5 | 38s | 0 | Elogiou clareza do banner e destaque da linha vencedora |
-| P3 (dev) | 5/5 | 30s | 1 (saque > saldo) | Pediu opção de persistir saldo entre sessões |
+| P1 (casual) | 6/6 | 45s | 1 (deposito < 20) | Apos mensagem, ajustou o deposito sem ajuda |
+| P2 (casual) | 6/6 | 38s | 0 | Elogiou clareza do banner e destaque da linha vencedora |
+| P3 (dev) | 6/6 | 30s | 2 (saque > saldo, PIX vazio) | Pediu opcao de persistir saldo e salvar chave PIX |
 
 ## Insights
 - Mensagens curtas foram suficientes para corrigir erros de entrada.
-- O botão de configurações foi encontrado facilmente; som e tema alternaram sem atrito.
-- Interesse em ver saldo persistente e histórico de giros como evolução futura.
+- O botao de configuracoes foi encontrado facilmente; som e tema alternaram sem atrito.
+- Mascara de saque ajudou a evitar formato errado; CEP preencheu endereco quando havia rede.
 
-## Ações sugeridas
-- Avaliar inclusão de persistência local para saldo/tema.
-- Acrescentar tooltip curto explicando regras de pagamento para novos usuários.
+## Acoes sugeridas
+- Avaliar inclusao de persistencia local para saldo/tema/chave PIX.
+- Acrescentar tooltip curto explicando regras de pagamento para novos usuarios.
+- Exibir aviso quando a consulta de CEP falhar para incentivar preenchimento manual.

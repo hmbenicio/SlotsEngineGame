@@ -1,27 +1,27 @@
 # SlotsEngine
 
-Aplicacao mobile de slot machine construida em React Native com Expo. Permite inserir creditos, escolher apostas, girar a roleta com animacao, conferir ganhos, alternar tema claro/escuro e simular saques. Todo o calculo roda no cliente, sem backend ou transacoes reais.
+Aplicacao mobile de slot machine em React Native com Expo. Todo o fluxo e client-side: saldo, apostas, sorteios e calculo de ganhos vivem no dispositivo, sem backend ou transacoes reais.
 
 ## Principais funcionalidades
-- Fluxo inicial centrado na tela de login, com opcao de cadastro e redirecionamento para o cassino simulado.
-- Deposito minimo de R$ 20,00 com feedback visual e sonoro.
-- Apostas pre-definidas (2 ate 100) com validacao de saldo e bloqueio de giros invalidos.
-- Tabuleiro 3x3 animado, deteccao de vitorias por linhas horizontais e diagonais e pagamento proporcional a raridade dos simbolos.
-- Mensagens de status em tempo real, historico da ultima aposta/premiacao e banner de avisos.
-- Modal de saque simulando retirada do saldo disponivel e atualizacao imediata dos creditos.
-- Modal de configuracoes para ligar/desligar sons e alternar o tema, tematizado conforme a tela de login.
-- Tela de perfil com dados do usuario logado, acessivel pelo icone da barra inferior.
+- Login com atalho para cadastro; apos autenticar o usuario entra direto no cassino.
+- Deposito minimo de R$ 20,00 com feedback visual/sonoro e bloqueio de giros sem saldo.
+- Apostas pre-definidas (2 a 100), tabuleiro 3x3 animado e pagamento por linhas horizontais/diagonais ponderados por raridade.
+- Banner de status em tempo real, exibicao de ultima aposta/premio e mensagens detalhadas quando ha bonus.
+- Modal de saque com mascara em BRL (ex.: 1.000,00) e confirmacao apenas se houver saldo e chave PIX preenchida.
+- Modal de configuracoes para ligar/desligar sons e alternar tema claro/escuro (paleta dourado/escuro herdada do login).
+- Tela de perfil acessivel pela barra inferior.
+- Cadastro com mascaras de CPF, data, telefone e CEP, incluindo preenchimento automatico de endereco via ViaCEP.
 
 ## Fluxo atual
-1. A aplicacao abre em `LoginPage` como tela principal.
-2. O usuario pode ir para `CreateAccountPage` ou seguir direto para o cassino ao submeter o login.
-3. O cassino roda em `CasinoPage`, com visual consistente ao login e todos os fluxos de deposito, apostas, giro, saque e configuracoes.
-4. O perfil (`ProfilePage`) pode ser aberto pelo icone na barra inferior para consultar dados do usuario.
+1. App inicia em `LoginPage`.
+2. Usuario pode ir para `CreateAccountPage` ou enviar o login para seguir.
+3. `CasinoPage` concentra deposito, apostas, giro, saque e configuracoes.
+4. `ProfilePage` abre pelo icone da barra inferior.
 
 ## Tecnologias
-- React Native 0.81 + Expo 54
-- Expo AV para audio remoto
-- Hooks personalizados (`useSlotMachine`, `useSounds`)
+- React Native 0.81 + Expo 54.
+- Expo AV para audio remoto.
+- Hooks personalizados (`useSlotMachine`, `useSounds`).
 
 ## Como executar
 ```bash
@@ -33,11 +33,11 @@ Requer Node.js 18+ e app Expo Go em dispositivo ou emulador configurado.
 
 ## Estrutura do repositorio
 - `SlotsEngine/` - codigo do app (Expo/React Native).
-  - `frontend/src/pages/` - telas `LoginPage`, `CreateAccountPage`, `CasinoPage` (cassino) e `ProfilePage`.
+  - `frontend/src/pages/` - telas `LoginPage`, `CreateAccountPage`, `CasinoPage` e `ProfilePage`.
   - `frontend/src/components/` - componentes de interface reutilizaveis.
 - `Docs/` - documentacao funcional, tecnica e de testes.
-- `Src/` - orientacoes gerais de uso e historico de versoes.
-- `Apresentacao/` - resumo do projeto para apresentacao.
+- `Src/` - instrucoes de uso e historico de versoes.
+- `Apresentacao/` - resumo para apresentacao.
 
 ## Documentacao
 - `Docs/01-Documentacao de Contexto.md`
@@ -55,4 +55,4 @@ Requer Node.js 18+ e app Expo Go em dispositivo ou emulador configurado.
 - `Docs/13-Referencias.md`
 
 ## Contatos e equipe
-Projeto desenvolvido para fins de portfolio. Ajuste a secao de equipe conforme o time atuante.
+Projeto de portfolio; ajuste a secao de equipe conforme o time atuante.

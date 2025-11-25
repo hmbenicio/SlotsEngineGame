@@ -7,9 +7,10 @@ Aplicacao mobile de slot machine construída em React Native com Expo. Permite i
 - Seletores de aposta predefinidos (2 ate 100) e validacao de saldo antes de cada giro.
 - Tabuleiro 3x3 com animacao de giro, deteccao de vitorias por linhas horizontais, diagonais e combinacoes de tres simbolos iguais com premios graduais por raridade.
 - Mensagens dinamicas de resultado (ganho, tentativa sem premio, erros de saldo/entrada) e banner de status.
-- Modal de saque simulando retirada do saldo disponivel e atualizacao imediata dos creditos.
+- Modal de saque no layout dourado/escuro (naipes e titulo destacado), com mascara monetaria BRL em tempo real (ex.: 1.000,00) iniciando vazia e atualizacao imediata dos creditos.
 - Modal de configuracao para ligar/desligar sons e alternar tema claro/escuro.
 - Barra inferior com atalho de informacoes e encerramento de sessao (mensagens apenas).
+- Cadastro com mascaras de entrada para CPF, data de nascimento, telefone e CEP.
 
 ## Tecnologias
 - React Native 0.81 + Expo 54

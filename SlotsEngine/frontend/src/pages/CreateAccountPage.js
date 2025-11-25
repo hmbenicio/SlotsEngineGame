@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   SafeAreaView,
   ScrollView,
@@ -10,6 +10,52 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { themeColors } from "../constants/theme";
+
+const onlyDigits = (value = "") => value.replace(/\D/g, "");
+
+const formatCpf = (value) => {
+  const digits = onlyDigits(value).slice(0, 11);
+  const part1 = digits.slice(0, 3);
+  const part2 = digits.slice(3, 6);
+  const part3 = digits.slice(6, 9);
+  const part4 = digits.slice(9, 11);
+
+  if (digits.length > 9) return `${part1}.${part2}.${part3}-${part4}`;
+  if (digits.length > 6) return `${part1}.${part2}.${part3}`;
+  if (digits.length > 3) return `${part1}.${part2}`;
+  return part1;
+};
+
+const formatDate = (value) => {
+  const digits = onlyDigits(value).slice(0, 8);
+  const day = digits.slice(0, 2);
+  const month = digits.slice(2, 4);
+  const year = digits.slice(4, 8);
+
+  if (digits.length > 4) return `${day}/${month}/${year}`;
+  if (digits.length > 2) return `${day}/${month}`;
+  return day;
+};
+
+const formatPhone = (value) => {
+  const digits = onlyDigits(value).slice(0, 11);
+  const ddd = digits.slice(0, 2);
+  const first = digits.slice(2, 7);
+  const last = digits.slice(7, 11);
+
+  if (digits.length > 7) return `(${ddd}) ${first}-${last}`;
+  if (digits.length > 2) return `(${ddd}) ${first}`;
+  return ddd ? `(${ddd}` : "";
+};
+
+const formatCep = (value) => {
+  const digits = onlyDigits(value).slice(0, 8);
+  const part1 = digits.slice(0, 5);
+  const part2 = digits.slice(5, 8);
+
+  if (digits.length > 5) return `${part1}-${part2}`;
+  return part1;
+};
 
 const initialState = {
   nomeCompleto: "",
@@ -55,7 +101,14 @@ const CreateAccountPage = ({ tema = "dark", onSubmit, onCancel }) => {
   );
 
   const handleChange = (key, value) => {
-    setForm((prev) => ({ ...prev, [key]: value }));
+    let formatted = value;
+
+    if (key === "cpf") formatted = formatCpf(value);
+    if (key === "dataNascimento") formatted = formatDate(value);
+    if (key === "contato") formatted = formatPhone(value);
+    if (key === "cep") formatted = formatCep(value);
+
+    setForm((prev) => ({ ...prev, [key]: formatted }));
   };
 
   const handleSubmit = () => {
@@ -94,6 +147,39 @@ const CreateAccountPage = ({ tema = "dark", onSubmit, onCancel }) => {
       />
     </View>
   );
+
+  useEffect(() => {
+    const digits = onlyDigits(form.cep);
+    if (digits.length !== 8) return;
+
+    let canceled = false;
+    const carregarEndereco = async () => {
+      try {
+        const response = await fetch(`https://viacep.com.br/ws/${digits}/json/`);
+        if (!response.ok) return;
+        const data = await response.json();
+        if (canceled || data.erro) return;
+
+        setForm((prev) => {
+          if (onlyDigits(prev.cep) !== digits) return prev;
+          return {
+            ...prev,
+            endereco: data.logradouro || prev.endereco,
+            bairro: data.bairro || prev.bairro,
+            cidade: data.localidade || prev.cidade,
+            uf: data.uf || prev.uf,
+          };
+        });
+      } catch (error) {
+        // ignora falhas de rede ou formato
+      }
+    };
+
+    carregarEndereco();
+    return () => {
+      canceled = true;
+    };
+  }, [form.cep]);
 
   return (
     <SafeAreaView style={[styles.safe, { backgroundColor: temaAtivo.background }]}>
@@ -149,7 +235,7 @@ const CreateAccountPage = ({ tema = "dark", onSubmit, onCancel }) => {
               })}
             </View>
             <View style={[styles.formRow, isCompact && styles.formRowStacked]}>
-              {renderField("dataNascimento", "Data de nascimento", "DD/MM/AAAA", {
+              {renderField("dataNascimento", "Data de nascimento", "00/00/0000", {
                 keyboardType: "numeric",
               })}
               {renderField("contato", "Contato (telefone)", "(00) 90000-0000", {

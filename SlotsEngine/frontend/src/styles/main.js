@@ -204,6 +204,9 @@ export const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
+  modalActionButton: {
+    flex: 1,
+  },
   configRow: {
     flexDirection: "row",
     alignItems: "center",

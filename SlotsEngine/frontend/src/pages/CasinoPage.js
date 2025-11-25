@@ -43,6 +43,8 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
     setModalConfigAberto,
     valorSaque,
     setValorSaque,
+    chavePix,
+    setChavePix,
     girando,
     somAtivo,
     setSomAtivo,
@@ -358,6 +360,8 @@ const CasinoPage = ({ onExit, onOpenProfile }) => {
         saldo={formatarBRL(saldo)}
         valorSaque={valorSaque}
         onChangeValorSaque={setValorSaque}
+        chavePix={chavePix}
+        onChangeChavePix={setChavePix}
         onConfirmar={confirmarSaque}
       />
 
