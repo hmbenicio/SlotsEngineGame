@@ -1,6 +1,6 @@
 # Instrucoes de Utilizacao
 
-Este documento consolida como instalar e operar o aplicativo mobile SlotsEngine, alem de registrar o historico de versoes publicas.
+Este documento consolida como instalar e operar o aplicativo mobile SlotsEngineGame, alem de registrar o historico de versoes publicas.
 
 ---
 
@@ -14,7 +14,7 @@ O projeto e um app mobile em React Native rodando no Expo. Nao ha backend: toda 
 
 2. **Instalacao**
    ```bash
-   cd SlotsEngine/frontend
+   cd SlotsEngineGame/frontend
    npm install
    npm start
    ```

@@ -1,21 +1,21 @@
-# Apresentação do Projeto
+# Apresentacao do Projeto
 
 ## Resumo executivo
-SlotsEngine é um app de slot machine feito em React Native com Expo que demonstra o ciclo completo de créditos, apostas e premiações sem backend. O foco é didático/portfólio: lógica transparente, feedback rápido e controles de acessibilidade (tema e som).
+SlotsEngineGame e um app de slot machine feito em React Native com Expo que demonstra o ciclo completo de creditos, apostas e premiacoes sem backend. O foco e portfolio pessoal: logica transparente, feedback rapido e controles de acessibilidade (tema e som).
 
 ## Destaques
-- Depósito mínimo de R$ 20 com validação e mensagens claras.
-- Apostas pré-definidas e cálculo de ganhos por linhas e diagonais em grid 3x3.
-- Modais de saque e configurações com efeito imediato.
-- Sons e temas para reforçar experiência audiovisual.
+- Deposito minimo de R$ 20 com validacao e mensagens claras.
+- Apostas pre-definidas e calculo de ganhos por linhas e diagonais em grid 3x3.
+- Modais de saque e configuracoes com efeito imediato.
+- Sons e temas para reforcar experiencia audiovisual.
 
-## Demonstração sugerida
+## Demonstracao sugerida
 1. Abrir app no Expo Go.
-2. Depositar R$ 50 e realizar dois giros (um com vitória, outro sem prêmio).
+2. Depositar R$ 50 e realizar dois giros (um com vitoria, outro sem premio).
 3. Alternar para tema claro e desligar som.
-4. Sacar parte do saldo e mostrar mensagem de confirmação.
+4. Sacar parte do saldo e mostrar mensagem de confirmacao.
 
-## Próximos passos
-- Persistência local de saldo/tema (AsyncStorage).
+## Proximos passos
+- Persistencia local de saldo/tema (AsyncStorage).
 - Tela de ajuda com regras de pagamento.
 - Ajustes finos de balanceamento (pesos e multiplicadores).

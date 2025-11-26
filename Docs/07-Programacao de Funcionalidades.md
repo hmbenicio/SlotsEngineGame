@@ -1,6 +1,6 @@
 # Programacao de Funcionalidades
 
-Lista de funcionalidades implementadas no SlotsEngine, mapeadas para componentes/arquivos e regras principais.
+Lista de funcionalidades implementadas no SlotsEngineGame, mapeadas para componentes/arquivos e regras principais.
 
 ## Entrada (login e cadastro)
 - **Componentes**: `LoginPage`, `CreateAccountPage` em `src/pages`.

@@ -1,6 +1,6 @@
 # Arquitetura da Solucao
 
-SlotsEngine e um aplicativo 100% client-side em React Native com Expo. Toda a logica de sorteio, calculo de pagamento e gerenciamento de saldo roda localmente. Login e cadastro sao telas de entrada sem integracao externa; o cassino fica em CasinoPage usando o hook central; ProfilePage apenas exibe dados em memoria. A unica chamada remota opcional e ViaCEP no cadastro e as URLs de audio para os sons.
+SlotsEngineGame e um aplicativo 100% client-side em React Native com Expo. Toda a logica de sorteio, calculo de pagamento e gerenciamento de saldo roda localmente. Login e cadastro sao telas de entrada sem integracao externa; o cassino fica em CasinoPage usando o hook central; ProfilePage apenas exibe dados em memoria. A unica chamada remota opcional e ViaCEP no cadastro e as URLs de audio para os sons.
 
 ## Visao geral
 
@@ -54,7 +54,7 @@ flowchart LR
 
 ## Estrutura de pastas do app
 ```
-SlotsEngine/frontend/
+SlotsEngineGame/frontend/
   App.js                # roteia LoginPage, CreateAccountPage, CasinoPage e ProfilePage
   src/pages/            # telas (login/cadastro/cassino/perfil)
   src/components/       # UI (DepositSection, BetSelector, SlotBoard, SettingsModal, etc.)

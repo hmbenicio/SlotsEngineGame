@@ -1,6 +1,6 @@
 # Template Padrao da Aplicacao
 
-Este template define como organizar codigo, estilos e constantes dentro do SlotsEngine para manter consistencia e facilitar ajustes de regras.
+Este template define como organizar codigo, estilos e constantes dentro do SlotsEngineGame para manter consistencia e facilitar ajustes de regras.
 
 ## Organizacao de componentes e paginas
 - **Pages**: `LoginPage` (tela inicial), `CreateAccountPage` (cadastro), `CasinoPage` (cassino) e `ProfilePage` (dados do usuario) em `src/pages`.
