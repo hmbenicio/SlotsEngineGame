@@ -1,6 +1,6 @@
 # Plano de Testes de Software
 
-Plano para validar o fluxo principal e os estados criticos do SlotsEngine. Testes sao manuais no Expo Go (Android/web) focando no comportamento do front-end.
+Plano para validar o fluxo principal e os estados criticos do SlotsEngineGame. Testes sao manuais no Expo Go (Android/web) focando no comportamento do front-end.
 
 ## Objetivos
 - Garantir que deposito, aposta, giro e saque funcionem conforme regras.

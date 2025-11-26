@@ -1,11 +1,11 @@
 # Especificacao do Projeto
 
-Este documento detalha personas, historias de usuario, requisitos e restricoes do SlotsEngine. A solucao e 100% client-side e foca em demonstrar a logica de um jogo de slots de forma transparente e didatica.
+Este documento detalha personas, historias de usuario, requisitos e restricoes do SlotsEngineGame. A solucao e 100% client-side e foca em demonstrar a logica de um jogo de slots de forma transparente e orientada a portfolio.
 
 ## Personas
 - **Marina (Jogadora casual, 24)** - quer testar giros rapidos, entender saldo e mensagens sem ler tutoriais.
 - **Carlos (Dev mobile, 29)** - deseja inspecionar o codigo para reutilizar o hook de logica, mascaras de input e componentes.
-- **Mentor/avaliador** - precisa confirmar ausencia de transacoes reais e clareza nos limites de aposta/saque.
+- **Avaliador de portfolio** - precisa confirmar ausencia de transacoes reais e clareza nos limites de aposta/saque.
 
 ## Historias de Usuario
 
@@ -18,7 +18,7 @@ Este documento detalha personas, historias de usuario, requisitos e restricoes d
 | Jogador casual | Silenciar sons e alternar tema | Jogar em ambientes diferentes sem incomodo |
 | Jogador casual | Preencher endereco automaticamente via CEP | Acelerar cadastro em dispositivos moveis |
 | Dev/estudante | Consultar regras e pesos de simbolos | Ajustar balanceamento de forma segura |
-| Mentor | Garantir que nao ha dinheiro real | Validar o objetivo academico/portfolio |
+| Avaliador | Garantir que nao ha dinheiro real | Validar o objetivo de portfolio |
 
 ## Modelagem de Processo
 

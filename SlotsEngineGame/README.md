@@ -1,6 +1,6 @@
-# SlotsEngine (Expo + React Native)
+# SlotsEngineGame (Expo + React Native)
 
-Aplicacao mobile de slot machine construida em React Native com Expo. Permite inserir creditos, escolher apostas, girar a roleta em animacao estilo carrossel (coluna por coluna) e sacar valores simulados. Inclui alternancia de tema (dark/light) e controles de som.
+Aplicacao mobile de slot machine construida em React Native com Expo. Permite inserir creditos, escolher apostas, girar a roleta em animacao estilo carrossel (coluna por coluna) e sacar valores simulados. Inclui alternancia de tema (dark/light) e controles de som. Projeto focado em demonstracao para portfolio pessoal.
 
 ## Funcionalidades
 - Deposito minimo de R$ 20,00 com feedback sonoro e mensagem de confirmacao.
@@ -42,7 +42,7 @@ Aplicacao mobile de slot machine construida em React Native com Expo. Permite in
 
 ## Como executar
 ```bash
-cd frontend
+cd SlotsEngineGame/frontend
 npm install
 npm start           # abre o menu do Expo (use a para Android, i para iOS, w para web)
 ```

@@ -1,6 +1,6 @@
 # Introducao
 
-SlotsEngine e um aplicativo mobile de slot machine criado em React Native com Expo. O projeto simula o ciclo completo de um jogo casual de caca-niqueis (deposito, aposta, giro, calculo de ganhos e saque ficticio), mantendo todo o estado no cliente e expondo a logica de sorteio e pagamento de forma transparente.
+SlotsEngineGame e um aplicativo mobile de slot machine criado em React Native com Expo. O projeto simula o ciclo completo de um jogo casual de caca-niqueis (deposito, aposta, giro, calculo de ganhos e saque ficticio), mantendo todo o estado no cliente e expondo a logica de sorteio e pagamento de forma transparente para fins de portfolio pessoal.
 
 # Problema
 
@@ -11,7 +11,7 @@ Jogos de slots costumam depender de backends ou servicos proprietarios para cont
 
 # Objetivos
 
-**Objetivo geral:** entregar um prototipo funcional de slots, autosuficiente no cliente, com regras de premiacao configuraveis e UX clara.
+**Objetivo geral:** entregar um prototipo funcional de slots, autosuficiente no cliente, com regras de premiacao configuraveis e UX clara para apresentacao em portfolio.
 
 **Objetivos especificos:**
 - Validar a interacao principal (deposito -> aposta -> giro -> saque) em tela pequena, com mensagens curtas e status visivel.
@@ -32,12 +32,12 @@ Benchmarks utilizados: inspecao de apps de slots populares, conversas rapidas co
 
 - **Jogadores ocasionais** que querem entender rapidamente saldo, aposta e resultado sem tutoriais longos.
 - **Estudantes/desenvolvedores** interessados em examinar logica de sorteio, pagamentos e controle de estado em React Native.
-- **Stakeholders academicos/mentores** que avaliam clareza da documentacao e ausencia de transacoes reais.
+- **Avaliadores de portfolio** que buscam clareza da documentacao e ausencia de transacoes reais.
 
 ## Perfis
 - **Marina (24, designer junior)**: testa UX de jogos casuais, valoriza clareza visual e feedback imediato.
 - **Carlos (29, dev mobile)**: busca exemplos de hooks e mascaras de input simples para jogos 2D.
-- **Gerente/mentor**: precisa validar que nao ha transacoes reais e que o fluxo esta bem documentado.
+- **Avaliador**: precisa validar que nao ha transacoes reais e que o fluxo esta bem documentado.
 
 ## Mapa de stakeholders
 
@@ -50,7 +50,7 @@ flowchart LR
     D["Desenvolvedores / Estudantes"]
     M["Mentores / Avaliadores"]
     E["Equipe de Desenvolvimento"]
-    A["SlotsEngine (Frontend)"]
+    A["SlotsEngineGame (Frontend)"]
 
     class U,D,M,E node;
     class A center;

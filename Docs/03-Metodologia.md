@@ -1,6 +1,6 @@
 # Metodologia
 
-O desenvolvimento do SlotsEngine seguiu um ciclo curto de ideacao, prototipacao e implementacao em uma unica base de front-end (React Native + Expo). As decisoes privilegiam simplicidade, legibilidade do codigo e facilidade de teste manual no Expo Go.
+O desenvolvimento do SlotsEngineGame seguiu um ciclo curto de ideacao, prototipacao e implementacao em uma unica base de front-end (React Native + Expo). As decisoes privilegiam simplicidade, legibilidade do codigo e facilidade de teste manual no Expo Go.
 
 ## Organizacao e ferramentas
 - **Versionamento**: Git/GitHub.
@@ -17,7 +17,7 @@ O desenvolvimento do SlotsEngine seguiu um ciclo curto de ideacao, prototipacao 
 6. **Refino**: ajustes de mensagens, pesos de raridade, feedback sonoro e responsividade.
 
 ## Gestao de Configuracao
-- Estrutura do app em `SlotsEngine/frontend`, separando constantes (`src/constants`), logica (`src/game` e `src/hooks`) e UI (`src/components`).
+- Estrutura do app em `SlotsEngineGame/frontend`, separando constantes (`src/constants`), logica (`src/game` e `src/hooks`) e UI (`src/components`).
 - Ajustes de balanceamento sao feitos apenas em `src/game/slotLogic.js` e `src/constants/game.js`, mantendo historico via git.
 - Sons e temas ficam em constantes, permitindo trocar URLs ou paletas sem alterar a logica central.
 
