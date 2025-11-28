@@ -63,4 +63,4 @@ Requer Node.js 18+ e app Expo Go em dispositivo ou emulador configurado.
 
 ## Contatos e equipe
 
-Projeto de portfolio pessoal; ajuste a secao de equipe conforme o time atuante.
+Projeto de portfolio pessoal.
